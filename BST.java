@@ -1,0 +1,74 @@
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+class BST {
+    Node root;
+
+    // Insert a node into BST
+    Node insert(Node root, int key) {
+        if (root == null) {
+            return new Node(key);
+        }
+
+        if (key < root.data) {
+            root.left = insert(root.left, key);
+        } else if (key > root.data) {
+            root.right = insert(root.right, key);
+        }
+
+        return root;
+    }
+
+    // Inorder Traversal (Left -> Root -> Right)
+    void inorder(Node root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
+    }
+
+    // Preorder Traversal (Root -> Left -> Right)
+    void preorder(Node root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    // Postorder Traversal (Left -> Right -> Root)
+    void postorder(Node root) {
+        if (root != null) {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        BST tree = new BST();
+
+        int[] values = {10, 30, 20, 15, 25, 50, 80};
+
+        for (int value : values) {
+            tree.root = tree.insert(tree.root, value);
+        }
+
+        System.out.print("Inorder Traversal: ");
+        tree.inorder(tree.root);
+
+        System.out.print("\nPreorder Traversal: ");
+        tree.preorder(tree.root);
+
+        System.out.print("\nPostorder Traversal: ");
+        tree.postorder(tree.root);
+    }
+}
